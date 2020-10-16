@@ -8,6 +8,7 @@ User = get_user_model()
 
 @csrf_exempt
 def create(request):
+    # Create a new user
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -33,6 +34,7 @@ def create(request):
 
 @csrf_exempt
 def login(request):
+    # Login a user
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -58,6 +60,7 @@ def login(request):
 
 @csrf_exempt
 def get_update_delete(request, pk):
+    # Get user by id
     if request.method == 'GET':
         try:
             user = User.objects.get(id=pk)
@@ -70,3 +73,22 @@ def get_update_delete(request, pk):
             return JsonResponse(result)
         except:
             return HttpResponse('Server Error', status=500)
+
+    if request.method == 'PUT':
+        # try:
+        data = json.loads(request.body)
+
+        name = data['name']
+
+        user = User.objects.get(id=pk)
+        user.name = name
+        user.save()
+
+        result = {
+            "id": user.id,
+            "name": user.name
+        }
+
+        return JsonResponse(result)
+        # except:
+        #     return HttpResponse('Server Error', status=500)
