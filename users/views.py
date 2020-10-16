@@ -29,7 +29,7 @@ def create(request):
 
             return JsonResponse(result)
         except:
-            return HttpResponse('Server Error', status=500)
+            return HttpResponse('User already exists', status=400)
 
 
 @csrf_exempt
@@ -72,16 +72,21 @@ def get_update_delete(request, pk):
 
             return JsonResponse(result)
         except:
-            return HttpResponse('Server Error', status=500)
+            return HttpResponse('User does not exist', status=400)
 
     if request.method == 'PUT':
         # try:
+        user = User.objects.get(id=pk)
+
         data = json.loads(request.body)
 
-        name = data['name']
+        if 'name' in data.keys():
+            name = data['name']
+            user.name = name
+        elif 'password' in data.keys():
+            password = data['password']
+            user.set_password(password)
 
-        user = User.objects.get(id=pk)
-        user.name = name
         user.save()
 
         result = {
@@ -91,4 +96,4 @@ def get_update_delete(request, pk):
 
         return JsonResponse(result)
         # except:
-        #     return HttpResponse('Server Error', status=500)
+        #     return HttpResponse('User does not exist', status=400)
