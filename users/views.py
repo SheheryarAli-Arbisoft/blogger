@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model, authenticate
 import json
@@ -19,7 +19,13 @@ def index(request):
         user = User.objects.create_user(
             email=email, password=password, name=name)
 
-        return HttpResponse(user)
+        result = {
+            "id": user.id,
+            "name": user.name,
+            "email": user.email,
+        }
+
+        return JsonResponse(result)
 
 
 @csrf_exempt
@@ -36,4 +42,9 @@ def login(request):
 
         if user is None:
             return HttpResponse('Invalid credentials', status=401)
-        return HttpResponse('Login successful')
+
+        result = {
+            "id": user.id
+        }
+
+        return JsonResponse(result)
