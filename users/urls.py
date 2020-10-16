@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import index, login
+from .views import create, login, get_update_delete
 
 urlpatterns = [
-    path('', index),
-    path('login/', login)
+    path('', create),
+    path('login/', login),
+    path('<int:pk>/', get_update_delete)
 ]
