@@ -74,26 +74,38 @@ def get_update_delete(request, pk):
         except:
             return HttpResponse('User does not exist', status=400)
 
+    # Update user name and password
     if request.method == 'PUT':
-        # try:
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
 
-        data = json.loads(request.body)
+            data = json.loads(request.body)
 
-        if 'name' in data.keys():
-            name = data['name']
-            user.name = name
-        elif 'password' in data.keys():
-            password = data['password']
-            user.set_password(password)
+            if 'name' in data.keys():
+                name = data['name']
+                user.name = name
+            elif 'password' in data.keys():
+                password = data['password']
+                user.set_password(password)
 
-        user.save()
+            user.save()
 
-        result = {
-            "id": user.id,
-            "name": user.name
-        }
+            result = {
+                "id": user.id,
+                "name": user.name
+            }
 
-        return JsonResponse(result)
-        # except:
-        #     return HttpResponse('User does not exist', status=400)
+            return JsonResponse(result)
+        except:
+            return HttpResponse('User does not exist', status=400)
+
+    # Delete a user
+    if request.method == "DELETE":
+        try:
+            user = User.objects.get(id=pk)
+
+            user.delete()
+
+            return HttpResponse('User deleted successfully')
+        except:
+            return HttpResponse('User does not exist', status=400)
