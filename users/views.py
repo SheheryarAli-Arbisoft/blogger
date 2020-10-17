@@ -89,3 +89,31 @@ class RetrieveUpdateDeleteView(APIView):
     def delete(self, request, pk):
         user.delete()
         return Response('User deleted successfully')
+
+
+class PasswordView(APIView):
+    # Getting the user object from the model
+    def get_object(self, pk):
+        try:
+            return User.objects.get(id=pk)
+        except:
+            raise Http404
+
+    # Update user password
+    def put(self, request, pk):
+        try:
+            data = JSONParser().parse(request)
+            password = data.get('password')
+            if password == '':
+                return Response('All fields are required', status=status.HTTP_400_BAD_REQUEST)
+            user = self.get_object(pk)
+            user.set_password(password)
+            user.save()
+            result = {
+                "id": user.id,
+                "name": user.name,
+                "email": user.email,
+            }
+            return Response(result)
+        except:
+            return Response('Server Error', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
