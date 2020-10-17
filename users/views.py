@@ -6,11 +6,14 @@ from rest_framework.parsers import JSONParser
 from .serializers import UserSerializer
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import AllowAny
 
 User = get_user_model()
 
 
 class CreateApiView(APIView):
+    permission_classes = [AllowAny]
+
     # Create a new user
     def post(self, request):
         data = JSONParser().parse(request)
@@ -29,6 +32,8 @@ class CreateApiView(APIView):
 
 
 class LoginApiView(APIView):
+    permission_classes = [AllowAny]
+
     # Login a user
     def post(self, request):
         try:
@@ -51,7 +56,7 @@ class LoginApiView(APIView):
             return Response('Server Error', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class RetrieveUpdateDeleteView(APIView):
+class UpdateDeleteView(APIView):
     # Update user name
     def put(self, request, pk):
         try:
