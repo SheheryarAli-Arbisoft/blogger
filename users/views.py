@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model, authenticate
 from rest_framework.parsers import JSONParser
 from .serializers import UserSerializer
 from rest_framework.views import APIView
-from django.http import Http404
+from rest_framework.authtoken.models import Token
 
 User = get_user_model()
 
@@ -16,11 +16,13 @@ class CreateApiView(APIView):
         data = JSONParser().parse(request)
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
+            user = serializer.save()
+            token = Token.objects.get(user=user).key
             result = {
-                "id": serializer.data.get('id'),
-                "name": serializer.data.get('name'),
-                "email": serializer.data.get('email'),
+                "id": user.id,
+                "name": user.name,
+                "email": user.email,
+                "token": token
             }
             return Response(result)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -37,10 +39,12 @@ class LoginApiView(APIView):
             user = authenticate(email=email, password=password)
             if user is None:
                 return Response('Invalid credentials', status=status.HTTP_401_UNAUTHORIZED)
+            token = Token.objects.get_or_create(user=user)[0]
             result = {
                 "id": user.id,
                 "name": user.name,
-                "email": user.email
+                "email": user.email,
+                "token": token.key
             }
             return Response(result)
         except:
@@ -48,24 +52,6 @@ class LoginApiView(APIView):
 
 
 class RetrieveUpdateDeleteView(APIView):
-    # Getting the user object from the model
-    def get_object(self, pk):
-        try:
-            return User.objects.get(id=pk)
-        except:
-            raise Http404
-
-    # Get a single user
-    def get(self, request, pk):
-        user = self.get_object(pk)
-        serializer = UserSerializer(user)
-        result = {
-            "id": serializer.data.get('id'),
-            "name": serializer.data.get('name'),
-            "email": serializer.data.get('email')
-        }
-        return Response(result)
-
     # Update user name
     def put(self, request, pk):
         try:
@@ -73,7 +59,7 @@ class RetrieveUpdateDeleteView(APIView):
             name = data.get('name')
             if name == '':
                 return Response('All fields are required', status=status.HTTP_400_BAD_REQUEST)
-            user = self.get_object(pk)
+            user = User.objects.get(id=pk)
             user.name = name
             user.save()
             result = {
@@ -92,13 +78,6 @@ class RetrieveUpdateDeleteView(APIView):
 
 
 class PasswordView(APIView):
-    # Getting the user object from the model
-    def get_object(self, pk):
-        try:
-            return User.objects.get(id=pk)
-        except:
-            raise Http404
-
     # Update user password
     def put(self, request, pk):
         try:
@@ -106,7 +85,7 @@ class PasswordView(APIView):
             password = data.get('password')
             if password == '':
                 return Response('All fields are required', status=status.HTTP_400_BAD_REQUEST)
-            user = self.get_object(pk)
+            user = User.objects.get(id=pk)
             user.set_password(password)
             user.save()
             result = {
