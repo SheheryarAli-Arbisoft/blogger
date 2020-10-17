@@ -22,7 +22,7 @@ def create(request):
                 "name": serializer.data.get('name'),
                 "email": serializer.data.get('email'),
             }
-            return JsonResponse(result, status=200)
+            return JsonResponse(result)
         return JsonResponse(serializer.errors, status=400)
 
 
@@ -33,7 +33,7 @@ def login(request):
         try:
             data = JSONParser().parse(request)
             email, password = data.get('email'), data.get('password')
-            if None in [email, password]:
+            if '' in [email, password]:
                 return HttpResponse('All fields are required', 400)
             user = authenticate(email=email, password=password)
             if user is None:
@@ -52,52 +52,43 @@ def login(request):
 
 @csrf_exempt
 def get_update_delete(request, pk):
+
+    try:
+        user = User.objects.get(id=pk)
+    except:
+        return HttpResponse('User does not exist', status=400)
+
     # Get user by id
     if request.method == 'GET':
-        try:
-            user = User.objects.get(id=pk)
-
-            result = {
-                "id": user.id,
-                "name": user.name,
-            }
-
-            return JsonResponse(result)
-        except:
-            return HttpResponse('User does not exist', status=400)
+        serializer = UserSerializer(user)
+        result = {
+            "id": serializer.data.get('id'),
+            "name": serializer.data.get('name'),
+            "email": serializer.data.get('email')
+        }
+        return JsonResponse(result)
 
     # Update user name and password
     if request.method == 'PUT':
         try:
-            user = User.objects.get(id=pk)
-
-            data = json.loads(request.body)
-
-            if 'name' in data.keys():
-                name = data['name']
-                user.name = name
-            elif 'password' in data.keys():
-                password = data['password']
-                user.set_password(password)
-
+            data = JSONParser().parse(request)
+            name = data.get('name')
+            if name == '':
+                return HttpResponse('All fields are required', 400)
+            user.name = name
             user.save()
-
             result = {
                 "id": user.id,
-                "name": user.name
+                "name": user.name,
+                "email": user.email,
             }
-
             return JsonResponse(result)
+        except ParseError:
+            return HttpResponse('All fields are required', 400)
         except:
-            return HttpResponse('User does not exist', status=400)
+            return HttpResponse('Server Error', status=500)
 
     # Delete a user
     if request.method == "DELETE":
-        try:
-            user = User.objects.get(id=pk)
-
-            user.delete()
-
-            return HttpResponse('User deleted successfully')
-        except:
-            return HttpResponse('User does not exist', status=400)
+        user.delete()
+        return HttpResponse('User deleted successfully')
