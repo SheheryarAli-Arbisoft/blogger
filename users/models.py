@@ -22,6 +22,3 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = ['name']
 
     objects = UserManager()
-
-    def __str__(self):
-        return self.email

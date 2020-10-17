@@ -1,6 +1,8 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model, authenticate
+from rest_framework.parsers import JSONParser
+from .serializers import UserSerializer
 import json
 
 User = get_user_model()
@@ -10,26 +12,17 @@ User = get_user_model()
 def create(request):
     # Create a new user
     if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-
-            name, email, password = data['name'], data['email'], data['password']
-
-            if not name or not email or not password:
-                return HttpResponse('All fields are required', 400)
-
-            user = User.objects.create_user(
-                email=email, password=password, name=name)
-
+        data = JSONParser().parse(request)
+        serializer = UserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
             result = {
-                "id": user.id,
-                "name": user.name,
-                "email": user.email,
+                "id": serializer.data.get('id'),
+                "name": serializer.data.get('name'),
+                "email": serializer.data.get('email'),
             }
-
-            return JsonResponse(result)
-        except:
-            return HttpResponse('User already exists', status=400)
+            return JsonResponse(result, status=200)
+        return JsonResponse(serializer.errors, status=400)
 
 
 @csrf_exempt
@@ -67,7 +60,7 @@ def get_update_delete(request, pk):
 
             result = {
                 "id": user.id,
-                "name": user.name
+                "name": user.name,
             }
 
             return JsonResponse(result)
