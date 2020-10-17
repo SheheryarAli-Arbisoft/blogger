@@ -22,9 +22,6 @@ class CreateApiView(APIView):
             user = serializer.save()
             token = Token.objects.get(user=user).key
             result = {
-                "id": user.id,
-                "name": user.name,
-                "email": user.email,
                 "token": token
             }
             return Response(result)
@@ -44,19 +41,28 @@ class LoginApiView(APIView):
             user = authenticate(email=email, password=password)
             if user is None:
                 return Response('Invalid credentials', status=status.HTTP_401_UNAUTHORIZED)
-            token = Token.objects.get_or_create(user=user)[0]
+            token = Token.objects.get(user=user).key
             result = {
-                "id": user.id,
-                "name": user.name,
-                "email": user.email,
-                "token": token.key
+                "token": token
             }
             return Response(result)
         except:
             return Response('Server Error', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class UpdateDeleteView(APIView):
+class GetApiView(APIView):
+    # Get current user
+    def get(self, request):
+        user = request.user
+        result = {
+            "id": user.id,
+            "name": user.name,
+            "email": user.email
+        }
+        return Response(result)
+
+
+class UpdateDeleteApiView(APIView):
     # Update user name
     def put(self, request, pk):
         try:
@@ -82,7 +88,7 @@ class UpdateDeleteView(APIView):
         return Response('User deleted successfully')
 
 
-class PasswordView(APIView):
+class PasswordApiView(APIView):
     # Update user password
     def put(self, request, pk):
         try:
