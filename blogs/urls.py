@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import index
+from .views import CreateApiView
 
 urlpatterns = [
-    path('', index)
+    path('', CreateApiView.as_view())
 ]

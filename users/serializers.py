@@ -7,12 +7,10 @@ User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(min_length=6)
-    blogs = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Blog.objects.all())
 
     class Meta:
         model = User
-        fields = ['id', 'name', 'email', 'password', 'blogs']
+        fields = ['id', 'name', 'email', 'password']
 
     def create(self, validated_data):
         name, email, password = validated_data['name'], validated_data['email'], validated_data['password']
