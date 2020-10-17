@@ -4,8 +4,7 @@ from .serializers import BlogSerializer
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework import generics
-from rest_framework import mixins
+from rest_framework import generics, mixins
 
 
 class CreateApiView(generics.GenericAPIView, mixins.ListModelMixin):
@@ -20,6 +19,7 @@ class CreateApiView(generics.GenericAPIView, mixins.ListModelMixin):
         if serializer.is_valid():
             blog = serializer.save()
             result = {
+                "id": blog.id,
                 "owner": blog.owner.id,
                 "title": blog.title,
                 "description": blog.description
@@ -30,3 +30,23 @@ class CreateApiView(generics.GenericAPIView, mixins.ListModelMixin):
     # Get all blogs
     def get(self, request):
         return self.list(request)
+
+
+class RetrieveUpdateDestroyApiView(generics.RetrieveDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+    def put(self, request, pk):
+        data = JSONParser().parse(request)
+        title, description = data['title'], data['description']
+        blog = Blog.objects.get(id=pk)
+        blog.title = title
+        blog.description = description
+        blog.save()
+        result = {
+            "id": blog.id,
+            "owner": blog.owner.id,
+            "title": blog.title,
+            "description": blog.description
+        }
+        return Response(result)

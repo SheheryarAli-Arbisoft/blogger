@@ -7,6 +7,7 @@ from .serializers import UserSerializer
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
+from rest_framework import generics, mixins
 
 User = get_user_model()
 
@@ -62,7 +63,10 @@ class GetApiView(APIView):
         return Response(result)
 
 
-class UpdateDeleteApiView(APIView):
+class UpdateDestroyApiView(generics.GenericAPIView, mixins.DestroyModelMixin):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
     # Update user name
     def put(self, request, pk):
         try:
@@ -83,9 +87,8 @@ class UpdateDeleteApiView(APIView):
             return Response('Server Error', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Delete a user
-    def delete(self, request, pk):
-        user.delete()
-        return Response('User deleted successfully')
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
 class PasswordApiView(APIView):
