@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, GridItem } from '../../components/Grid';
 import { Button } from '../../components/Button';
-import { Input } from '../../components/Input';
 import { BlogsList } from './BlogsList';
 
 export const Dashboard = () => {

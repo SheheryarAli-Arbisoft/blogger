@@ -1,12 +1,12 @@
 import React from 'react';
-import { CustomDialog } from './styled';
-import { propTypes, defaultProps } from './props';
 import {
   DialogTitle,
   DialogContent,
   DialogActions,
   Slide,
 } from '@material-ui/core';
+import { CustomDialog } from './styled';
+import { propTypes, defaultProps } from './props';
 import { Button } from '../Button';
 
 const Transition = React.forwardRef(function Transition(props, ref) {

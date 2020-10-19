@@ -2,9 +2,9 @@ import React, { Fragment, useState } from 'react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { CardContent, CardActions } from '@material-ui/core';
 import { CustomCard } from './styled';
 import { propTypes, defaultProps } from './props';
-import { CardContent, CardActions } from '@material-ui/core';
 import { Text } from '../Text';
 import { Button } from '../Button';
 import { Dialog } from '../Dialog';
@@ -33,8 +33,9 @@ export const Card = ({ blog, showActions, ...rest }) => {
           </Text>
         </Link>
         <Text color='textSecondary' noWrap>
-          Created on {<Moment format='DD-MMM-YYYY'>{timestamp}</Moment>},{' '}
-          {<Moment format='hh:mm a'>{timestamp}</Moment>}
+          Created on
+          <Moment format='DD-MMM-YYYY'>{timestamp}</Moment>,{' '}
+          <Moment format='hh:mm a'>{timestamp}</Moment>
         </Text>
         <Text variant='body2' noWrap>
           {description}

@@ -1,14 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { SubmissionError } from 'redux-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from '../../components/Paper';
 import { LoginForm } from './LoginForm';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  loadingSelector,
-  isAuthenticatedSelector,
-  userSelector,
-} from '../../selectors/auth';
+import { loadingSelector, isAuthenticatedSelector } from '../../selectors/auth';
 import { login } from '../../actions/auth';
 
 export const Login = () => {

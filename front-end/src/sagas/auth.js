@@ -10,6 +10,19 @@ import {
   userLoaded,
 } from '../actions/auth';
 
+// Loading the current user
+function* loadUser() {
+  try {
+    setAuthToken();
+
+    const res = yield call(() => axios.get('/api/users/current/'));
+
+    yield put(userLoaded(res.data));
+  } catch (err) {
+    yield put(setAlert('User with this email already exists'));
+  }
+}
+
 // Login a user
 function* login(action) {
   const {
@@ -65,19 +78,6 @@ function* register(action) {
     if (err.response.status === 400) {
       yield put(setAlert('User with this email already exists'));
     }
-  }
-}
-
-// Loading the current user
-function* loadUser() {
-  try {
-    setAuthToken();
-
-    const res = yield call(() => axios.get('/api/users/current/'));
-
-    yield put(userLoaded(res.data));
-  } catch (err) {
-    yield put(setAlert('User with this email already exists'));
   }
 }
 

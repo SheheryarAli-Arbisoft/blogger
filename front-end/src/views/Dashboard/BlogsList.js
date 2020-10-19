@@ -14,6 +14,7 @@ export const BlogsList = () => {
 
   useEffect(() => {
     dispatch(loadAllBlogs());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (

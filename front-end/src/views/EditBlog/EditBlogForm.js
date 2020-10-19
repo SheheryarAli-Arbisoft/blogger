@@ -1,8 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
 import { Grid, GridItem } from '../../components/Grid';
-import { Text } from '../../components/Text';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
@@ -17,6 +15,7 @@ const renderInputField = ({
     {...input}
     type={type}
     label={label}
+    // eslint-disable-next-line no-unneeded-ternary
     error={touched && error ? true : false}
     helperText={error}
     {...rest}

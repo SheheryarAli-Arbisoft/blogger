@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { SubmissionError } from 'redux-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from '../../components/Paper';
 import { RegisterForm } from './RegisterForm';
-import { useDispatch, useSelector } from 'react-redux';
 import { loadingSelector, isAuthenticatedSelector } from '../../selectors/auth';
 import { register } from '../../actions/auth';
 

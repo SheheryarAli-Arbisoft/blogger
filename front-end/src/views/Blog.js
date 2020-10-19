@@ -19,6 +19,7 @@ export const Blog = () => {
 
   useEffect(() => {
     dispatch(loadBlog(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (

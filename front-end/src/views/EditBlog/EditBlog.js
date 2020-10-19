@@ -20,6 +20,7 @@ export const EditBlog = () => {
 
   useEffect(() => {
     dispatch(loadBlog(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const handleSubmit = values => {
@@ -44,7 +45,8 @@ export const EditBlog = () => {
       </GridItem>
       <GridItem xs={12}>
         <Text variant='h4' gutterBottom>
-          <i className='fas fa-blog' /> Fill in the information to edit the blog
+          <i className='fas fa-blog' />
+          Fill in the information to edit the blog
         </Text>
       </GridItem>
       <GridItem xs={12}>

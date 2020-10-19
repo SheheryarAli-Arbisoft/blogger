@@ -11,6 +11,7 @@ const renderInputField = ({ input, type, label, meta: { touched, error } }) => (
     {...input}
     type={type}
     label={label}
+    // eslint-disable-next-line no-unneeded-ternary
     error={touched && error ? true : false}
     helperText={error}
   />

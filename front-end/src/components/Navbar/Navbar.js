@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Toolbar } from '@material-ui/core';
 import { CustomNavbar } from './styled';
 import { propTypes, defaultProps } from './props';
-import { Toolbar } from '@material-ui/core';
 import { Text } from '../Text';
 import { Button } from '../Button';
 import { logout } from '../../actions/auth';

@@ -34,8 +34,8 @@ export const CreateBlog = () => {
       </GridItem>
       <GridItem xs={12}>
         <Text variant='h4' gutterBottom>
-          <i className='fas fa-blog' /> Fill in the information to create a new
-          blog
+          <i className='fas fa-blog' />
+          Fill in the information to create a new blog
         </Text>
       </GridItem>
       <GridItem xs={12}>

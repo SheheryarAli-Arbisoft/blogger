@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Slide } from '@material-ui/core';
 import { CustomAlert } from './styled';
 import { propTypes, defaultProps } from './props';
-import { Slide } from '@material-ui/core';
 import { openSelector, messageSelector } from '../../selectors/alert';
 import { removeAlert } from '../../actions/alert';
 

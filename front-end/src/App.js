@@ -4,9 +4,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import {
   StylesProvider,
   ThemeProvider as MuiThemeProvider,
+  CssBaseline,
 } from '@material-ui/core';
 import { ThemeProvider } from 'styled-components';
-import { CssBaseline } from '@material-ui/core';
 import { Navbar } from './components/Navbar';
 import { Content } from './views/Content';
 import { store } from './store';

@@ -43,7 +43,7 @@ export const blog = (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        blogs: [...state.blogs.filter(blog => blog.id !== payload)],
+        blogs: [...state.blogs.filter(item => item.id !== payload)],
       };
     case BLOG_CREATED:
     case BLOG_UPDATED:

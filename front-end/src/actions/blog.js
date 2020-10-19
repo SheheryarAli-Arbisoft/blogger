@@ -17,7 +17,7 @@ export const createBlog = (title, description, history) => ({
 });
 
 export const blogCreated = () => ({
-  type: CREATE_BLOG,
+  type: BLOG_CREATED,
 });
 
 export const loadAllBlogs = () => ({
