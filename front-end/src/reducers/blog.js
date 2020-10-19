@@ -4,6 +4,7 @@ import {
   BLOG_ERROR,
   BLOG_DELETED,
   BLOG_LOADED,
+  BLOG_UPDATED,
 } from '../actions/types';
 
 const initialState = {
@@ -45,6 +46,7 @@ export const blog = (state = initialState, action) => {
         blogs: [...state.blogs.filter(blog => blog.id !== payload)],
       };
     case BLOG_CREATED:
+    case BLOG_UPDATED:
     default:
       return state;
   }

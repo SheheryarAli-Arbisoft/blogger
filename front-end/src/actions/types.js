@@ -21,4 +21,6 @@ export const DELETE_BLOG = 'DELETE_BLOG';
 export const BLOG_DELETED = 'BLOG_DELETED';
 export const LOAD_BLOG = 'LOAD_BLOG';
 export const BLOG_LOADED = 'BLOG_LOADED';
+export const UPDATE_BLOG = 'UPDATE_BLOG';
+export const BLOG_UPDATED = 'BLOG_UPDATED';
 export const BLOG_ERROR = 'BLOG_ERROR';

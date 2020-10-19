@@ -11,6 +11,8 @@ import {
   BLOG_ERROR,
   LOAD_BLOG,
   BLOG_LOADED,
+  UPDATE_BLOG,
+  BLOG_UPDATED,
 } from '../actions/types';
 
 // Creating a new blog
@@ -110,9 +112,43 @@ function* loadBlog(action) {
   }
 }
 
+// Updating a blog
+function* updateBlog(action) {
+  const {
+    payload: { id, title, description, history },
+  } = action;
+
+  const body = JSON.stringify({ title, description });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    yield call(() => axios.put(`/api/blogs/${id}/`, body, config));
+
+    yield put({ type: BLOG_UPDATED });
+
+    yield put({
+      type: SET_ALERT,
+      payload: 'Blog updated successfully',
+    });
+
+    history.goBack();
+  } catch (err) {
+    yield put({
+      type: BLOG_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+}
+
 export function* blogSaga() {
   yield takeEvery(CREATE_BLOG, createBlog);
   yield takeEvery(LOAD_ALL_BLOGS, loadAllBlogs);
   yield takeEvery(DELETE_BLOG, deleteBlog);
   yield takeEvery(LOAD_BLOG, loadBlog);
+  yield takeEvery(UPDATE_BLOG, updateBlog);
 }

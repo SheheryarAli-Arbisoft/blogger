@@ -62,4 +62,5 @@ const Form = ({ handleSubmit }) => {
 
 export const EditBlogForm = reduxForm({
   form: 'create-blog-form',
+  enableReinitialize: true,
 })(Form);

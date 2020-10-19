@@ -37,10 +37,4 @@ class RetrieveUpdateDestroyApiView(generics.RetrieveDestroyAPIView):
         blog.title = title
         blog.description = description
         blog.save()
-        result = {
-            "id": blog.id,
-            "owner": blog.owner.id,
-            "title": blog.title,
-            "description": blog.description
-        }
-        return Response(result)
+        return Response(status=status.HTTP_200_OK)

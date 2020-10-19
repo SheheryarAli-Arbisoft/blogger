@@ -6,7 +6,7 @@ import { EditBlogForm } from './EditBlogForm';
 import { Grid, GridItem } from '../../components/Grid';
 import { Button } from '../../components/Button';
 import { Text } from '../../components/Text';
-import { createBlog, loadBlog } from '../../actions/blog';
+import { updateBlog, loadBlog } from '../../actions/blog';
 import { userSelector } from '../../selectors/auth';
 import { loadingSelector, blogSelector } from '../../selectors/blog';
 
@@ -26,7 +26,7 @@ export const EditBlog = () => {
     } else if (!description) {
       throw new SubmissionError({ description: 'Please enter a description' });
     } else {
-      dispatch(createBlog(title, description, history));
+      dispatch(updateBlog(id, title, description, history));
     }
   };
 
@@ -50,16 +50,15 @@ export const EditBlog = () => {
         </Text>
       </GridItem>
       <GridItem xs={12}>
-        <EditBlogForm
-          onSubmit={handleSubmit}
-          initialValues={
-            !loading &&
-            blog !== null && {
-              title: blog.title,
-              description: blog.description,
-            }
-          }
-        />
+        {!loading && blog !== null && (
+          <EditBlogForm
+            onSubmit={handleSubmit}
+            initialValues={{
+              title: blog !== null ? blog.title : '',
+              description: blog !== null ? blog.description : '',
+            }}
+          />
+        )}
       </GridItem>
     </Grid>
   );
