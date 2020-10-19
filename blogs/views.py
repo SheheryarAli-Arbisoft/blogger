@@ -18,13 +18,7 @@ class CreateApiView(generics.GenericAPIView, mixins.ListModelMixin):
         serializer = BlogSerializer(data=data)
         if serializer.is_valid():
             blog = serializer.save()
-            result = {
-                "id": blog.id,
-                "owner": blog.owner.id,
-                "title": blog.title,
-                "description": blog.description
-            }
-            return Response(result)
+            return Response(status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # Get all blogs

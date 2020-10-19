@@ -1,8 +1,9 @@
 import React, { useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Card } from '../../components/Card';
 import { loadAllBlogs } from '../../actions/blog';
 import { userSelector } from '../../selectors/auth';
-import { Card } from '../../components/Card';
+import { loadingSelector, blogsSelector } from '../../selectors/blog';
 
 export const BlogsList = () => {
   const dispatch = useDispatch();
@@ -12,11 +13,12 @@ export const BlogsList = () => {
     dispatch(loadAllBlogs());
   }, [user]);
 
+  const loading = useSelector(loadingSelector);
+  const blogs = useSelector(blogsSelector);
+
   return (
-    <Fragment>
-      <Card />
-      <Card />
-      <Card />
-    </Fragment>
+    !loading &&
+    blogs.length > 0 &&
+    blogs.map(blog => <Card key={blog.id} blog={blog} />)
   );
 };

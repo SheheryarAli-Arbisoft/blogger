@@ -11,13 +11,6 @@ export const blog = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case BLOG_CREATED:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        blogs: [...state.blogs, payload],
-      };
     case ALL_BLOGS_LOADED:
       return {
         ...state,
@@ -31,6 +24,7 @@ export const blog = (state = initialState, action) => {
         loading: false,
         error: payload,
       };
+    case BLOG_CREATED:
     default:
       return state;
   }

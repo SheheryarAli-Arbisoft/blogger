@@ -1,28 +1,23 @@
 import React from 'react';
+import Moment from 'react-moment';
 import { CustomCard } from './styled';
 import { propTypes, defaultProps } from './props';
-import { CardContent, Typography } from '@material-ui/core';
+import { CardContent } from '@material-ui/core';
 import { Text } from '../Text';
 
-export const Card = ({ ...rest }) => {
+export const Card = ({ blog, ...rest }) => {
+  const { title, timestamp, description } = blog;
+
   return (
-    <CustomCard>
+    <CustomCard {...rest}>
       <CardContent>
-        <Text variant='h4' gutterBottom>
-          Blog Title
+        <Text variant='h4'>{title}</Text>
+        <Text>
+          Created on {<Moment format='DD-MMM-YYYY'>{timestamp}</Moment>},{' '}
+          {<Moment format='hh:mm a'>{timestamp}</Moment>}
         </Text>
-        <Text color='textSecondary' noWrap>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo
-          laudantium id debitis officia possimus animi corporis architecto
-          itaque ipsa modi doloribus nemo, aperiam libero voluptatum aut
-          laboriosam laborum veniam, atque perferendis ipsam incidunt quod,
-          porro impedit. Dolorum vero nobis ea quibusdam ducimus porro sed
-          velit, et error placeat laudantium non, cumque alias quae laborum est
-          culpa consequuntur voluptates fugiat totam! Eveniet, ab id doloremque,
-          quasi earum quis esse illum dolorem sed iusto, repellat sit eos
-          officiis sapiente deleniti vitae sequi vel? Fuga, atque neque quae
-          rerum impedit possimus molestiae illo nihil incidunt perspiciatis.
-          Numquam suscipit beatae molestiae laborum quos vel.
+        <Text color='textSecondary' variant='body2' noWrap>
+          {description}
         </Text>
       </CardContent>
     </CustomCard>

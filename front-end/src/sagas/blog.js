@@ -24,12 +24,9 @@ function* createBlog(action) {
   };
 
   try {
-    const res = yield call(() => axios.post('/api/blogs/', body, config));
+    yield call(() => axios.post('/api/blogs/', body, config));
 
-    yield put({
-      type: BLOG_CREATED,
-      payload: res.data,
-    });
+    yield put({ type: BLOG_CREATED });
 
     yield put({
       type: SET_ALERT,
