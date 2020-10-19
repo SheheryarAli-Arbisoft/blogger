@@ -1,4 +1,4 @@
-import { takeLeading, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call } from 'redux-saga/effects';
 import axios from 'axios';
 import { LOGIN, LOGIN_SUCCESS, AUTH_ERROR } from '../actions/types';
 
@@ -16,23 +16,21 @@ function* login(action) {
   };
 
   try {
-    const res = yield call(axios.post('/api/users/login/', body, config));
+    const res = yield call(() => axios.post('/api/users/login/', body, config));
 
     yield put({
       type: LOGIN_SUCCESS,
       payload: res.data.token,
     });
   } catch (err) {
+    console.log(err);
     yield put({
       type: AUTH_ERROR,
-      payload: {
-        msg: err.response.statusText,
-        status: err.response.status,
-      },
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 }
 
 export function* authSaga() {
-  yield takeLeading(LOGIN, login);
+  yield takeEvery(LOGIN, login);
 }

@@ -13,10 +13,12 @@ export const auth = (state = initialState, action) => {
 
   switch (type) {
     case LOGIN_SUCCESS:
+      localStorage.setItem('token', payload);
       return {
         ...state,
         loading: false,
         isAuthenticated: true,
+        error: null,
         token: payload,
       };
     case AUTH_ERROR:

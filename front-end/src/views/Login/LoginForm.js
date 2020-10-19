@@ -6,8 +6,14 @@ import { Text } from '../../components/Text';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
-const renderInputField = ({ input, type, label }) => (
-  <Input {...input} type={type} label={label} />
+const renderInputField = ({ input, type, label, meta: { touched, error } }) => (
+  <Input
+    {...input}
+    type={type}
+    label={label}
+    error={touched && error ? true : false}
+    helperText={error}
+  />
 );
 
 const Form = ({ handleSubmit }) => {
