@@ -4,9 +4,12 @@ import {
   SET_ALERT,
   CREATE_BLOG,
   BLOG_CREATED,
+  LOAD_ALL_BLOGS,
+  ALL_BLOGS_LOADED,
   BLOG_ERROR,
 } from '../actions/types';
 
+// Creating a new blog
 function* createBlog(action) {
   const {
     payload: { title, description, history },
@@ -42,6 +45,24 @@ function* createBlog(action) {
   }
 }
 
+// Loading all blogs
+function* loadAllBlogs() {
+  try {
+    const res = yield call(() => axios.get('/api/blogs/'));
+
+    yield put({
+      type: ALL_BLOGS_LOADED,
+      payload: res.data,
+    });
+  } catch (err) {
+    yield put({
+      type: BLOG_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+}
+
 export function* blogSaga() {
   yield takeEvery(CREATE_BLOG, createBlog);
+  yield takeEvery(LOAD_ALL_BLOGS, loadAllBlogs);
 }

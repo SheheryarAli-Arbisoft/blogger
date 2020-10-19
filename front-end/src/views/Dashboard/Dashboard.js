@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Grid, GridItem } from '../../components/Grid';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { BlogsList } from './BlogsList';
 
 export const Dashboard = () => {
   return (
@@ -16,6 +17,9 @@ export const Dashboard = () => {
       </GridItem>
       <GridItem xs={12}>
         <Input label='Search' />
+      </GridItem>
+      <GridItem xs={12}>
+        <BlogsList />
       </GridItem>
     </Grid>
   );
