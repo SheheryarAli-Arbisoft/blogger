@@ -20,7 +20,7 @@ export const Login = () => {
     if (!email) {
       throw new SubmissionError({ email: 'Please enter a valid email' });
     } else if (!password) {
-      throw new SubmissionError({ password: 'Please enter password' });
+      throw new SubmissionError({ password: 'Please enter your password' });
     } else {
       dispatch(login(email, password));
     }

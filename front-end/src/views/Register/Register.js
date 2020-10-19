@@ -18,7 +18,7 @@ export const Register = () => {
     } else if (!email) {
       throw new SubmissionError({ email: 'Please enter a valid email' });
     } else if (!password) {
-      throw new SubmissionError({ password: 'Please enter password' });
+      throw new SubmissionError({ password: 'Please enter your password' });
     } else if (!cpassword || password !== cpassword) {
       throw new SubmissionError({ cpassword: 'Passwords do not match' });
     } else if (password.length < 6) {

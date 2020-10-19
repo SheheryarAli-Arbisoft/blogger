@@ -11,3 +11,8 @@ export const REGISTER = 'REGISTER';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGOUT = 'LOGOUT';
+
+// BLOG
+export const CREATE_BLOG = 'CREATE_BLOG';
+export const BLOG_CREATED = 'BLOG_CREATED';
+export const BLOG_ERROR = 'BLOG_ERROR';
