@@ -13,6 +13,7 @@ User = get_user_model()
 
 
 class CreateApiView(APIView):
+    authentication_classes = []
     permission_classes = [AllowAny]
 
     # Create a new user
@@ -30,6 +31,7 @@ class CreateApiView(APIView):
 
 
 class LoginApiView(APIView):
+    authentication_classes = []
     permission_classes = [AllowAny]
 
     # Login a user

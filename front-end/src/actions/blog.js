@@ -9,6 +9,7 @@ import {
   ALL_BLOGS_LOADED,
   BLOG_DELETED,
   BLOG_UPDATED,
+  BLOG_LOADED,
 } from './types';
 
 export const createBlog = (title, description, history) => ({
@@ -45,7 +46,7 @@ export const loadBlog = id => ({
 });
 
 export const blogLoaded = data => ({
-  type: LOAD_BLOG,
+  type: BLOG_LOADED,
   payload: data,
 });
 

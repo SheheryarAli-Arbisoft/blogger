@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Moment from 'react-moment';
+import parse from 'html-react-parser';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, GridItem } from '../components/Grid';
@@ -52,7 +53,11 @@ export const Blog = () => {
         </Text>
       </GridItem>
       <GridItem xs={12}>
-        <Text>{!loading && blog !== null && blog.description}</Text>
+        <Text>
+          {!loading &&
+            blog !== null &&
+            parse(blog.description.replaceAll('\n', ' <br />'))}
+        </Text>
       </GridItem>
     </Grid>
   );
