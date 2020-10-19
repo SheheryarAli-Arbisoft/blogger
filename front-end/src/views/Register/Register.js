@@ -4,11 +4,7 @@ import { SubmissionError } from 'redux-form';
 import { Paper } from '../../components/Paper';
 import { RegisterForm } from './RegisterForm';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  loadingSelector,
-  isAuthenticatedSelector,
-  userSelector,
-} from '../../selectors/auth';
+import { loadingSelector, isAuthenticatedSelector } from '../../selectors/auth';
 import { register } from '../../actions/auth';
 
 export const Register = () => {

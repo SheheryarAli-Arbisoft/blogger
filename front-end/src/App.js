@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import {
+  StylesProvider,
+  ThemeProvider as MuiThemeProvider,
+} from '@material-ui/core';
+import { ThemeProvider } from 'styled-components';
 import { CssBaseline } from '@material-ui/core';
 import { Navbar } from './components/Navbar';
 import { Content } from './views/Content';
 import { store } from './store';
+import { theme } from './theme';
 import { loadUser } from './actions/auth';
 import './App.css';
 
@@ -16,9 +22,15 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <CssBaseline />
-        <Navbar />
-        <Content />
+        <StylesProvider injectFirst>
+          <MuiThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Navbar />
+              <Content />
+            </ThemeProvider>
+          </MuiThemeProvider>
+        </StylesProvider>
       </Router>
     </Provider>
   );
