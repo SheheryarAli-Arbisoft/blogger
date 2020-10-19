@@ -23,7 +23,7 @@ export const Content = () => {
         <PrivateRoute exact path='/blog/:id' component={Blog} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
-        {/* <Redirect to='/dashboard' /> */}
+        <Redirect to='/dashboard' />
       </Switch>
     </Container>
   );

@@ -9,6 +9,8 @@ import { register } from '../../actions/auth';
 
 export const Register = () => {
   const dispatch = useDispatch();
+  const loading = useSelector(loadingSelector);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
 
   const handleSubmit = values => {
     const { name, email, password, cpassword } = values;
@@ -29,9 +31,6 @@ export const Register = () => {
       dispatch(register(name, email, password));
     }
   };
-
-  const loading = useSelector(loadingSelector);
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
 
   if (!loading && isAuthenticated) {
     return <Redirect to='/dashboard' />;

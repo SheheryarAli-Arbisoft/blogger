@@ -1,7 +1,6 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 import axios from 'axios';
 import {
-  SET_ALERT,
   CREATE_BLOG,
   BLOG_CREATED,
   LOAD_ALL_BLOGS,
@@ -14,6 +13,7 @@ import {
   UPDATE_BLOG,
   BLOG_UPDATED,
 } from '../actions/types';
+import { setAlert } from '../actions/alert';
 
 // Creating a new blog
 function* createBlog(action) {
@@ -34,10 +34,7 @@ function* createBlog(action) {
 
     yield put({ type: BLOG_CREATED });
 
-    yield put({
-      type: SET_ALERT,
-      payload: 'Blog created successfully',
-    });
+    yield put(setAlert('Blog created successfully'));
 
     history.goBack();
   } catch (err) {
@@ -79,10 +76,7 @@ function* deleteBlog(action) {
       payload: id,
     });
 
-    yield put({
-      type: SET_ALERT,
-      payload: 'Blog deleted successfully',
-    });
+    yield put(setAlert('Blog deleted successfully'));
   } catch (err) {
     yield put({
       type: BLOG_ERROR,
@@ -131,10 +125,7 @@ function* updateBlog(action) {
 
     yield put({ type: BLOG_UPDATED });
 
-    yield put({
-      type: SET_ALERT,
-      payload: 'Blog updated successfully',
-    });
+    yield put(setAlert('Blog updated successfully'));
 
     history.goBack();
   } catch (err) {
@@ -145,6 +136,7 @@ function* updateBlog(action) {
   }
 }
 
+// Initializing the watchers
 export function* blogSaga() {
   yield takeEvery(CREATE_BLOG, createBlog);
   yield takeEvery(LOAD_ALL_BLOGS, loadAllBlogs);

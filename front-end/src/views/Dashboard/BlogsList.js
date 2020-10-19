@@ -9,13 +9,12 @@ import { loadingSelector, blogsSelector } from '../../selectors/blog';
 export const BlogsList = () => {
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
+  const loading = useSelector(loadingSelector);
+  const blogs = useSelector(blogsSelector);
 
   useEffect(() => {
     dispatch(loadAllBlogs());
   }, [user]);
-
-  const loading = useSelector(loadingSelector);
-  const blogs = useSelector(blogsSelector);
 
   return (
     <Grid>

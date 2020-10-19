@@ -13,8 +13,14 @@ import { loadingSelector, blogSelector } from '../../selectors/blog';
 export const EditBlog = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-
   const { id } = useParams();
+  const loading = useSelector(loadingSelector);
+  const blog = useSelector(blogSelector);
+  const user = useSelector(userSelector);
+
+  useEffect(() => {
+    dispatch(loadBlog(id));
+  }, [user]);
 
   const handleSubmit = values => {
     const { title, description } = values;
@@ -27,15 +33,6 @@ export const EditBlog = () => {
       dispatch(updateBlog(id, title, description, history));
     }
   };
-
-  const user = useSelector(userSelector);
-
-  useEffect(() => {
-    dispatch(loadBlog(id));
-  }, [user]);
-
-  const loading = useSelector(loadingSelector);
-  const blog = useSelector(blogSelector);
 
   return (
     <Grid>

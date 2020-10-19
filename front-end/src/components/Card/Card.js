@@ -12,9 +12,7 @@ import { deleteBlog } from '../../actions/blog';
 
 export const Card = ({ blog, showActions, ...rest }) => {
   const { id, title, timestamp, description } = blog;
-
   const dispatch = useDispatch();
-
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {

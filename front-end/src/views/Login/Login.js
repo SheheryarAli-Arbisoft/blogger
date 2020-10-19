@@ -13,6 +13,8 @@ import { login } from '../../actions/auth';
 
 export const Login = () => {
   const dispatch = useDispatch();
+  const loading = useSelector(loadingSelector);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
 
   const handleSubmit = values => {
     const { email, password } = values;
@@ -25,9 +27,6 @@ export const Login = () => {
       dispatch(login(email, password));
     }
   };
-
-  const loading = useSelector(loadingSelector);
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
 
   if (!loading && isAuthenticated) {
     return <Redirect to='/dashboard' />;

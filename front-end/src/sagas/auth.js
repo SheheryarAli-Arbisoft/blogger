@@ -88,6 +88,7 @@ function* register(action) {
   }
 }
 
+// Loading the current user
 function* loadUser() {
   try {
     setAuthToken();
