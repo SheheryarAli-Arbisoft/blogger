@@ -1,4 +1,9 @@
-import { LOGIN_SUCCESS, REGISTER_SUCCESS, AUTH_ERROR } from '../actions/types';
+import {
+  USER_LOADED,
+  LOGIN_SUCCESS,
+  REGISTER_SUCCESS,
+  AUTH_ERROR,
+} from '../actions/types';
 
 const initialState = {
   user: null,
@@ -12,8 +17,16 @@ export const auth = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case REGISTER_SUCCESS:
+    case USER_LOADED:
+      return {
+        ...state,
+        user: payload,
+        loading: false,
+        isAuthenticated: true,
+        error: null,
+      };
     case LOGIN_SUCCESS:
+    case REGISTER_SUCCESS:
       localStorage.setItem('token', payload);
       return {
         ...state,

@@ -1,4 +1,8 @@
-import { LOGIN, REGISTER } from './types';
+import { LOAD_USER, LOGIN, REGISTER } from './types';
+
+export const loadUser = () => ({
+  type: LOAD_USER,
+});
 
 export const login = (email, password) => ({
   type: LOGIN,
