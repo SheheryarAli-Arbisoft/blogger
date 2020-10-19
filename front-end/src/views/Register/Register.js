@@ -1,8 +1,14 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { SubmissionError } from 'redux-form';
 import { Paper } from '../../components/Paper';
 import { RegisterForm } from './RegisterForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  loadingSelector,
+  isAuthenticatedSelector,
+  userSelector,
+} from '../../selectors/auth';
 import { register } from '../../actions/auth';
 
 export const Register = () => {
@@ -27,6 +33,13 @@ export const Register = () => {
       dispatch(register(name, email, password));
     }
   };
+
+  const loading = useSelector(loadingSelector);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+
+  if (!loading && isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Paper>

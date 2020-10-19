@@ -1,8 +1,14 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { SubmissionError } from 'redux-form';
 import { Paper } from '../../components/Paper';
 import { LoginForm } from './LoginForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  loadingSelector,
+  isAuthenticatedSelector,
+  userSelector,
+} from '../../selectors/auth';
 import { login } from '../../actions/auth';
 
 export const Login = () => {
@@ -19,6 +25,13 @@ export const Login = () => {
       dispatch(login(email, password));
     }
   };
+
+  const loading = useSelector(loadingSelector);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+
+  if (!loading && isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Paper>
