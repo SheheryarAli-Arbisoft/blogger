@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
 
 export const CustomGridItem = styled(Grid)`
-  margin-bottom: 20px;
-  float: ${({ rtl }) => (rtl ? 'right' : 'none')};
+  text-align: ${({ rtl }) => (rtl ? 'right' : 'left')};
+  padding: 8px 12px !important;
 
   & > a {
     text-decoration: none;

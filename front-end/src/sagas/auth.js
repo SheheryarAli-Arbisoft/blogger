@@ -33,6 +33,8 @@ function* login(action) {
       type: LOGIN_SUCCESS,
       payload: res.data.token,
     });
+
+    yield loadUser();
   } catch (err) {
     yield put({
       type: AUTH_ERROR,
@@ -69,6 +71,8 @@ function* register(action) {
       type: REGISTER_SUCCESS,
       payload: res.data.token,
     });
+
+    yield loadUser();
   } catch (err) {
     yield put({
       type: AUTH_ERROR,
