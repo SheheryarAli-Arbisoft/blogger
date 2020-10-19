@@ -5,5 +5,6 @@ export const CustomPaper = styled(Paper)`
   && {
     width: 475px;
     height: fit-content;
+    padding: 30px 20px;
   }
 `;

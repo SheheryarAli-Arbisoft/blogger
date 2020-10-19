@@ -10,7 +10,7 @@ export const Navbar = ({ ...rest }) => {
   return (
     <CustomNavbar {...rest}>
       <Toolbar>
-        <Text variant='h6' flexGrow>
+        <Text variant='h6' flexGrow bold>
           <Link to='/'>Blogger</Link>
         </Text>
         <Link to='/register'>
