@@ -37,11 +37,13 @@ export const auth = (state = initialState, action) => {
         token: payload,
       };
     case AUTH_ERROR:
+      localStorage.removeItem('token');
       return {
         ...state,
         loading: false,
         isAuthenticated: false,
         error: payload,
+        token: null,
       };
     case LOGOUT:
       localStorage.removeItem('token');

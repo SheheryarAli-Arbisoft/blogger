@@ -5,7 +5,7 @@ export const CustomGridItem = styled(Grid)`
   margin-bottom: 20px;
   float: ${({ rtl }) => (rtl ? 'right' : 'none')};
 
-  a {
+  & > a {
     text-decoration: none;
     color: inherit;
   }

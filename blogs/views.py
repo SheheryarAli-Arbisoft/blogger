@@ -8,7 +8,7 @@ from rest_framework import generics, mixins
 
 
 class CreateApiView(generics.GenericAPIView, mixins.ListModelMixin):
-    queryset = Blog.objects.all()
+    queryset = Blog.objects.order_by('-timestamp')
     serializer_class = BlogSerializer
 
     # Create a blog
