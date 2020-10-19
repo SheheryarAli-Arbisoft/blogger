@@ -12,7 +12,11 @@ import { loadingSelector, isAuthenticatedSelector } from '../../selectors/auth';
 export const Navbar = ({ ...rest }) => {
   const dispatch = useDispatch();
 
-  const authLinks = <Button onClick={() => dispatch(logout())}>Logout</Button>;
+  const authLinks = (
+    <Button variant='outlined' onClick={() => dispatch(logout())}>
+      Logout
+    </Button>
+  );
 
   const normalLinks = (
     <Fragment>

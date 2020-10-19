@@ -15,8 +15,6 @@ export const EditBlog = () => {
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const loading = useSelector(loadingSelector);
-  const blog = useSelector(blogSelector);
 
   const handleSubmit = values => {
     const { title, description } = values;
@@ -35,6 +33,9 @@ export const EditBlog = () => {
   useEffect(() => {
     dispatch(loadBlog(id));
   }, [user]);
+
+  const loading = useSelector(loadingSelector);
+  const blog = useSelector(blogSelector);
 
   return (
     <Grid>

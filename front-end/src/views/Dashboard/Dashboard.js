@@ -16,9 +16,6 @@ export const Dashboard = () => {
         </Link>
       </GridItem>
       <GridItem xs={12}>
-        <Input label='Search' />
-      </GridItem>
-      <GridItem xs={12}>
         <BlogsList />
       </GridItem>
     </Grid>

@@ -8,6 +8,7 @@ import { Register } from './Register';
 import { Dashboard } from './Dashboard';
 import { CreateBlog } from './CreateBlog';
 import { EditBlog } from './EditBlog';
+import { Blog } from './Blog';
 
 export const Content = () => {
   const { pathname } = useLocation();
@@ -19,9 +20,10 @@ export const Content = () => {
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
         <PrivateRoute exact path='/create-blog' component={CreateBlog} />
         <PrivateRoute exact path='/edit-blog/:id' component={EditBlog} />
+        <PrivateRoute exact path='/blog/:id' component={Blog} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
-        <Redirect to='/dashboard' />
+        {/* <Redirect to='/dashboard' /> */}
       </Switch>
     </Container>
   );

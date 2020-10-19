@@ -29,14 +29,16 @@ export const Card = ({ blog, showActions, ...rest }) => {
   return (
     <CustomCard {...rest}>
       <CardContent>
-        <Text variant='h4' noWrap>
-          {title}
-        </Text>
-        <Text noWrap>
+        <Link to={`/blog/${id}`}>
+          <Text variant='h4' noWrap>
+            {title}
+          </Text>
+        </Link>
+        <Text color='textSecondary' noWrap>
           Created on {<Moment format='DD-MMM-YYYY'>{timestamp}</Moment>},{' '}
           {<Moment format='hh:mm a'>{timestamp}</Moment>}
         </Text>
-        <Text color='textSecondary' variant='body2' noWrap>
+        <Text variant='body2' noWrap>
           {description}
         </Text>
       </CardContent>
