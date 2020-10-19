@@ -1,4 +1,4 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeLeading, put, call } from 'redux-saga/effects';
 import axios from 'axios';
 import { LOGIN, LOGIN_SUCCESS, AUTH_ERROR } from '../actions/types';
 
@@ -32,5 +32,5 @@ function* login(action) {
 }
 
 export function* authSaga() {
-  yield takeEvery(LOGIN, login);
+  yield takeLeading(LOGIN, login);
 }
