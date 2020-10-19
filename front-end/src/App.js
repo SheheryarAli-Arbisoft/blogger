@@ -1,8 +1,14 @@
 import React from 'react';
+import { Container } from './components/Container';
+import { Navbar } from './components/Navbar';
 import './App.css';
 
 function App() {
-  return <div>Hello World</div>;
+  return (
+    <Container>
+      <Navbar />
+    </Container>
+  );
 }
 
 export default App;
