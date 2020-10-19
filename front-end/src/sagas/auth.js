@@ -19,7 +19,8 @@ function* loadUser() {
 
     yield put(userLoaded(res.data));
   } catch (err) {
-    yield put(setAlert('User with this email already exists'));
+    console.log(err);
+    // yield put(authError(err));
   }
 }
 

@@ -26,6 +26,8 @@
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "react/jsx-curly-brace-presence": "off",
-    "react/jsx-curly-newline": "off"
+    "react/jsx-curly-newline": "off",
+    "no-nested-ternary": "off",
+    "dot-notation": "off"
   }
 }
