@@ -1,16 +1,14 @@
 import { takeLeading, put, call } from 'redux-saga/effects';
 import axios from 'axios';
 import { setAuthToken } from '../utils';
+import { LOAD_USER, LOGIN, REGISTER } from '../actions/types';
+import { setAlert } from '../actions/alert';
 import {
-  SET_ALERT,
-  LOAD_USER,
-  USER_LOADED,
-  LOGIN,
-  LOGIN_SUCCESS,
-  REGISTER,
-  REGISTER_SUCCESS,
-  AUTH_ERROR,
-} from '../actions/types';
+  loginSuccess,
+  registerSuccess,
+  authError,
+  userLoaded,
+} from '../actions/auth';
 
 // Login a user
 function* login(action) {
@@ -29,23 +27,14 @@ function* login(action) {
   try {
     const res = yield call(() => axios.post('/api/users/login/', body, config));
 
-    yield put({
-      type: LOGIN_SUCCESS,
-      payload: res.data.token,
-    });
+    yield put(loginSuccess(res.data.token));
 
     yield loadUser();
   } catch (err) {
-    yield put({
-      type: AUTH_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    yield put(authError(err));
 
     if (err.response.status === 401) {
-      yield put({
-        type: SET_ALERT,
-        payload: 'Invalid credentials',
-      });
+      yield put(setAlert('Invalid credentials'));
     }
   }
 }
@@ -67,23 +56,14 @@ function* register(action) {
   try {
     const res = yield call(() => axios.post('/api/users/', body, config));
 
-    yield put({
-      type: REGISTER_SUCCESS,
-      payload: res.data.token,
-    });
+    yield put(registerSuccess(res.data.token));
 
     yield loadUser();
   } catch (err) {
-    yield put({
-      type: AUTH_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    yield put(authError(err));
 
     if (err.response.status === 400) {
-      yield put({
-        type: SET_ALERT,
-        payload: 'User with this email already exists',
-      });
+      yield put(setAlert('User with this email already exists'));
     }
   }
 }
@@ -95,15 +75,9 @@ function* loadUser() {
 
     const res = yield call(() => axios.get('/api/users/current/'));
 
-    yield put({
-      type: USER_LOADED,
-      payload: res.data,
-    });
+    yield put(userLoaded(res.data));
   } catch (err) {
-    yield put({
-      type: AUTH_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    yield put(setAlert('User with this email already exists'));
   }
 }
 

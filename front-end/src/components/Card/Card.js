@@ -44,7 +44,7 @@ export const Card = ({ blog, showActions, ...rest }) => {
         <Fragment>
           <CardActions>
             <Link to={`/edit-blog/${id}`}>
-              <Button variant='outlined' color='secondary'>
+              <Button variant='contained' color='secondary'>
                 <i className='fas fa-pencil-alt' />
                 Edit
               </Button>
