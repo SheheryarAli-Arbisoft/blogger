@@ -2,18 +2,20 @@ import { takeEvery, put, call } from 'redux-saga/effects';
 import axios from 'axios';
 import {
   CREATE_BLOG,
-  BLOG_CREATED,
   LOAD_ALL_BLOGS,
-  ALL_BLOGS_LOADED,
   DELETE_BLOG,
-  BLOG_DELETED,
-  BLOG_ERROR,
   LOAD_BLOG,
-  BLOG_LOADED,
   UPDATE_BLOG,
-  BLOG_UPDATED,
 } from '../actions/types';
 import { setAlert } from '../actions/alert';
+import {
+  blogError,
+  blogCreated,
+  allBlogsLoaded,
+  blogDeleted,
+  blogUpdated,
+  blogLoaded,
+} from '../actions/blog';
 
 // Creating a new blog
 function* createBlog(action) {
@@ -32,16 +34,13 @@ function* createBlog(action) {
   try {
     yield call(() => axios.post('/api/blogs/', body, config));
 
-    yield put({ type: BLOG_CREATED });
+    yield put(blogCreated());
 
     yield put(setAlert('Blog created successfully'));
 
     history.goBack();
   } catch (err) {
-    yield put({
-      type: BLOG_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    yield put(blogError(err));
   }
 }
 
@@ -50,15 +49,9 @@ function* loadAllBlogs() {
   try {
     const res = yield call(() => axios.get('/api/blogs/'));
 
-    yield put({
-      type: ALL_BLOGS_LOADED,
-      payload: res.data,
-    });
+    yield put(allBlogsLoaded(res.data));
   } catch (err) {
-    yield put({
-      type: BLOG_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    yield put(blogError(err));
   }
 }
 
@@ -71,17 +64,11 @@ function* deleteBlog(action) {
   try {
     yield call(() => axios.delete(`/api/blogs/${id}/`));
 
-    yield put({
-      type: BLOG_DELETED,
-      payload: id,
-    });
+    yield put(blogDeleted(id));
 
     yield put(setAlert('Blog deleted successfully'));
   } catch (err) {
-    yield put({
-      type: BLOG_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    yield put(blogError(err));
   }
 }
 
@@ -94,15 +81,9 @@ function* loadBlog(action) {
   try {
     const res = yield call(() => axios.get(`/api/blogs/${id}/`));
 
-    yield put({
-      type: BLOG_LOADED,
-      payload: res.data,
-    });
+    yield put(blogLoaded(res.data));
   } catch (err) {
-    yield put({
-      type: BLOG_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    yield put(blogError(err));
   }
 }
 
@@ -123,16 +104,13 @@ function* updateBlog(action) {
   try {
     yield call(() => axios.put(`/api/blogs/${id}/`, body, config));
 
-    yield put({ type: BLOG_UPDATED });
+    yield put(blogUpdated());
 
     yield put(setAlert('Blog updated successfully'));
 
     history.goBack();
   } catch (err) {
-    yield put({
-      type: BLOG_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    yield put(blogError(err));
   }
 }
 
