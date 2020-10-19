@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 
 export const CustomGridItem = styled(Grid)`
   text-align: ${({ rtl }) => (rtl ? 'right' : 'left')};
-  padding: 8px 12px !important;
+  padding: 10px 12px !important;
 
   & > a {
     text-decoration: none;

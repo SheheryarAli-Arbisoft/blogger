@@ -1,4 +1,9 @@
-import { BLOG_CREATED, ALL_BLOGS_LOADED, BLOG_ERROR } from '../actions/types';
+import {
+  BLOG_CREATED,
+  ALL_BLOGS_LOADED,
+  BLOG_ERROR,
+  BLOG_DELETED,
+} from '../actions/types';
 
 const initialState = {
   blog: null,
@@ -23,6 +28,13 @@ export const blog = (state = initialState, action) => {
         ...state,
         loading: false,
         error: payload,
+      };
+    case BLOG_DELETED:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        blogs: [...state.blogs.filter(blog => blog.id !== payload)],
       };
     case BLOG_CREATED:
     default:

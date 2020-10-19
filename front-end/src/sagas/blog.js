@@ -6,6 +6,8 @@ import {
   BLOG_CREATED,
   LOAD_ALL_BLOGS,
   ALL_BLOGS_LOADED,
+  DELETE_BLOG,
+  BLOG_DELETED,
   BLOG_ERROR,
 } from '../actions/types';
 
@@ -59,7 +61,34 @@ function* loadAllBlogs() {
   }
 }
 
+// Delete a blog
+function* deleteBlog(action) {
+  const {
+    payload: { id },
+  } = action;
+
+  try {
+    yield call(() => axios.delete(`/api/blogs/${id}/`));
+
+    yield put({
+      type: BLOG_DELETED,
+      payload: id,
+    });
+
+    yield put({
+      type: SET_ALERT,
+      payload: 'Blog deleted successfully',
+    });
+  } catch (err) {
+    yield put({
+      type: BLOG_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+}
+
 export function* blogSaga() {
   yield takeEvery(CREATE_BLOG, createBlog);
   yield takeEvery(LOAD_ALL_BLOGS, loadAllBlogs);
+  yield takeEvery(DELETE_BLOG, deleteBlog);
 }
