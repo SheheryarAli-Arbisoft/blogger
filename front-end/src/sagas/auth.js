@@ -19,8 +19,7 @@ function* loadUser() {
 
     yield put(userLoaded(res.data));
   } catch (err) {
-    console.log(err);
-    // yield put(authError(err));
+    yield put(authError(err));
   }
 }
 
