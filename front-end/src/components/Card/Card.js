@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import Moment from 'react-moment';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { CustomCard } from './styled';
 import { propTypes, defaultProps } from './props';
@@ -42,10 +43,12 @@ export const Card = ({ blog, showActions, ...rest }) => {
       {showActions && (
         <Fragment>
           <CardActions>
-            <Button variant='outlined' color='secondary'>
-              <i className='fas fa-pencil-alt' />
-              Edit
-            </Button>
+            <Link to={`/edit-blog/${id}`}>
+              <Button variant='outlined' color='secondary'>
+                <i className='fas fa-pencil-alt' />
+                Edit
+              </Button>
+            </Link>
             <Button variant='outlined' onClick={() => setOpen(true)}>
               <i className='fas fa-trash' />
               Delete

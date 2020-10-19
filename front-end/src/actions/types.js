@@ -19,4 +19,6 @@ export const LOAD_ALL_BLOGS = 'LOAD_ALL_BLOGS';
 export const ALL_BLOGS_LOADED = 'ALL_BLOGS_LOADED';
 export const DELETE_BLOG = 'DELETE_BLOG';
 export const BLOG_DELETED = 'BLOG_DELETED';
+export const LOAD_BLOG = 'LOAD_BLOG';
+export const BLOG_LOADED = 'BLOG_LOADED';
 export const BLOG_ERROR = 'BLOG_ERROR';

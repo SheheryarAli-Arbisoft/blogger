@@ -9,3 +9,8 @@ export const blogsSelector = createSelector(
   state => state.blog.blogs,
   blogs => blogs
 );
+
+export const blogSelector = createSelector(
+  state => state.blog.blog,
+  blog => blog
+);

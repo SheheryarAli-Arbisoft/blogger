@@ -9,6 +9,8 @@ import {
   DELETE_BLOG,
   BLOG_DELETED,
   BLOG_ERROR,
+  LOAD_BLOG,
+  BLOG_LOADED,
 } from '../actions/types';
 
 // Creating a new blog
@@ -87,8 +89,30 @@ function* deleteBlog(action) {
   }
 }
 
+// Load a blog
+function* loadBlog(action) {
+  const {
+    payload: { id },
+  } = action;
+
+  try {
+    const res = yield call(() => axios.get(`/api/blogs/${id}/`));
+
+    yield put({
+      type: BLOG_LOADED,
+      payload: res.data,
+    });
+  } catch (err) {
+    yield put({
+      type: BLOG_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+}
+
 export function* blogSaga() {
   yield takeEvery(CREATE_BLOG, createBlog);
   yield takeEvery(LOAD_ALL_BLOGS, loadAllBlogs);
   yield takeEvery(DELETE_BLOG, deleteBlog);
+  yield takeEvery(LOAD_BLOG, loadBlog);
 }

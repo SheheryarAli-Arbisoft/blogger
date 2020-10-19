@@ -1,4 +1,4 @@
-import { CREATE_BLOG, DELETE_BLOG, LOAD_ALL_BLOGS } from './types';
+import { CREATE_BLOG, DELETE_BLOG, LOAD_ALL_BLOGS, LOAD_BLOG } from './types';
 
 export const createBlog = (title, description, history) => ({
   type: CREATE_BLOG,
@@ -11,5 +11,10 @@ export const loadAllBlogs = () => ({
 
 export const deleteBlog = id => ({
   type: DELETE_BLOG,
+  payload: { id },
+});
+
+export const loadBlog = id => ({
+  type: LOAD_BLOG,
   payload: { id },
 });

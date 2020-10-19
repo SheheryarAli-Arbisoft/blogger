@@ -60,6 +60,6 @@ const Form = ({ handleSubmit }) => {
   );
 };
 
-export const CreateBlogForm = reduxForm({
+export const EditBlogForm = reduxForm({
   form: 'create-blog-form',
 })(Form);

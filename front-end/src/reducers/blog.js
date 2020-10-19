@@ -3,6 +3,7 @@ import {
   ALL_BLOGS_LOADED,
   BLOG_ERROR,
   BLOG_DELETED,
+  BLOG_LOADED,
 } from '../actions/types';
 
 const initialState = {
@@ -22,6 +23,13 @@ export const blog = (state = initialState, action) => {
         loading: false,
         error: null,
         blogs: payload,
+      };
+    case BLOG_LOADED:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        blog: payload,
       };
     case BLOG_ERROR:
       return {
