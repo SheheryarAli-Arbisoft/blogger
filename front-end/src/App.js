@@ -1,16 +1,17 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
-import { Container } from './components/Container';
 import { Navbar } from './components/Navbar';
+import { Content } from './views/Content';
 import './App.css';
 
 function App() {
   return (
-    <Fragment>
+    <Router>
       <CssBaseline />
       <Navbar />
-      <Container>This is container content</Container>
-    </Fragment>
+      <Content />
+    </Router>
   );
 }
 

@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 
 export const propTypes = {
-  position: PropTypes.string,
+  children: PropTypes.any,
+  elevation: PropTypes.number,
 };
 
 export const defaultProps = {
-  position: 'fixed',
+  elevation: 3,
 };

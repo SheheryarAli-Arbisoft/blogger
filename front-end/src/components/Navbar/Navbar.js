@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { CustomNavbar } from './styled';
 import { propTypes, defaultProps } from './props';
 import { Toolbar } from '@material-ui/core';
@@ -10,10 +11,14 @@ export const Navbar = ({ ...rest }) => {
     <CustomNavbar {...rest}>
       <Toolbar>
         <Text variant='h6' flexGrow>
-          Blogger
+          <Link to='/'>Blogger</Link>
         </Text>
-        <Button>Register</Button>
-        <Button>Login</Button>
+        <Link to='/register'>
+          <Button>Register</Button>
+        </Link>
+        <Link to='/login'>
+          <Button>Login</Button>
+        </Link>
       </Toolbar>
     </CustomNavbar>
   );
