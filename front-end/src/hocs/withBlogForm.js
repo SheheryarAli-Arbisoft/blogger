@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Grid, GridItem } from '../components/Grid';
 import { Input } from '../components/Input';
@@ -8,25 +8,22 @@ export const withBlogForm = ({
   formName,
   enableReinitialize = false,
 }) => WrappedComponent => {
-  const renderInputField = ({
-    input,
-    type,
-    label,
-    meta: { touched, error },
-    ...rest
-  }) => (
-    <Input
-      {...input}
-      type={type}
-      label={label}
-      // eslint-disable-next-line no-unneeded-ternary
-      error={touched && error ? true : false}
-      helperText={error}
-      {...rest}
-    />
-  );
-
   const Form = ({ handleSubmit }) => {
+    const renderInputField = useCallback(
+      ({ input, type, label, meta: { touched, error }, ...rest }) => (
+        <Input
+          {...input}
+          type={type}
+          label={label}
+          // eslint-disable-next-line no-unneeded-ternary
+          error={touched && error ? true : false}
+          helperText={error}
+          {...rest}
+        />
+      ),
+      []
+    );
+
     return (
       <form onSubmit={handleSubmit}>
         <Grid>
