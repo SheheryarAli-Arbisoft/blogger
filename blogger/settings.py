@@ -140,3 +140,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'front-end/build/static')
 ]
+
+REACT_ROUTES = [
+    'login',
+    'register',
+    'dashboard',
+    'create-blog',
+    'edit-blog',
+    'blog',
+]
