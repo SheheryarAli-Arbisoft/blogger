@@ -2,13 +2,13 @@ import React from 'react';
 import { SubmissionError } from 'redux-form';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { CreateBlogForm } from './CreateBlogForm';
-import { Grid, GridItem } from '../../components/Grid';
-import { Button } from '../../components/Button';
-import { Text } from '../../components/Text';
-import { createBlog } from '../../actions/blog';
+import { withBlogForm } from '../hocs';
+import { Grid, GridItem } from '../components/Grid';
+import { Button } from '../components/Button';
+import { Text } from '../components/Text';
+import { createBlog } from '../actions/blog';
 
-export const CreateBlog = () => {
+const Form = ({ form: BlogForm }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -39,8 +39,10 @@ export const CreateBlog = () => {
         </Text>
       </GridItem>
       <GridItem xs={12}>
-        <CreateBlogForm onSubmit={handleSubmit} />
+        <BlogForm onSubmit={handleSubmit} />
       </GridItem>
     </Grid>
   );
 };
+
+export const CreateBlog = withBlogForm({ formName: 'create-blog-form' })(Form);

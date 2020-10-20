@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import { SubmissionError } from 'redux-form';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { EditBlogForm } from './EditBlogForm';
-import { Grid, GridItem } from '../../components/Grid';
-import { Button } from '../../components/Button';
-import { Text } from '../../components/Text';
-import { updateBlog, loadBlog } from '../../actions/blog';
-import { userSelector } from '../../selectors/auth';
-import { loadingSelector, blogSelector } from '../../selectors/blog';
+import { withBlogForm } from '../hocs';
+import { Grid, GridItem } from '../components/Grid';
+import { Button } from '../components/Button';
+import { Text } from '../components/Text';
+import { updateBlog, loadBlog } from '../actions/blog';
+import { userSelector } from '../selectors/auth';
+import { loadingSelector, blogSelector } from '../selectors/blog';
 
-export const EditBlog = () => {
+const Form = ({ form: BlogForm }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -51,7 +51,7 @@ export const EditBlog = () => {
       </GridItem>
       <GridItem xs={12}>
         {!loading && blog !== null && (
-          <EditBlogForm
+          <BlogForm
             onSubmit={handleSubmit}
             initialValues={{
               title: blog !== null ? blog.title : '',
@@ -63,3 +63,8 @@ export const EditBlog = () => {
     </Grid>
   );
 };
+
+export const EditBlog = withBlogForm({
+  formName: 'edit-blog-form',
+  enableReinitialize: true,
+})(Form);

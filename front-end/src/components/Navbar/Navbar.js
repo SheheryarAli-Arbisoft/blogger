@@ -13,7 +13,11 @@ export const Navbar = ({ ...rest }) => {
   const dispatch = useDispatch();
 
   const authLinks = (
-    <Button variant='outlined' onClick={() => dispatch(logout())}>
+    <Button
+      color='primary'
+      variant='outlined'
+      onClick={() => dispatch(logout())}
+    >
       Logout
     </Button>
   );

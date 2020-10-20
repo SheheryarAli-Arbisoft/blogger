@@ -1,0 +1,1 @@
+export { withBlogForm } from './withBlogForm';
